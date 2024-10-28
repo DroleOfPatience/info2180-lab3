@@ -1,10 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Select all divs inside the game board with a specific selector (assuming they have a specific ID or class)
     const squares = document.querySelectorAll("#board div"); // Adjust selector if needed
+    const statusDiv = document.getElementById("status");
     let isX = true;
     const GameSquares = Array(9).fill(null)
-    // Loop through each square and add the 'square' class
-    
+    const winS = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+    function winCheck(){
+        for (const win of winS) {
+            const [a, b, c] = win;
+            if (GameSquares[a] && GameSquares[a] === GameSquares[b] && GameSquares[a] === GameSquares[c]) {
+                return GameSquares[a]; 
+            }
+        }
+        return null;
+    }
+
+
     squares.forEach((square, index) => {
         square.setAttribute("class","square");
 
@@ -15,8 +26,13 @@ document.addEventListener("DOMContentLoaded", function () {
             square.textContent = GameSquares[index];
             square.setAttribute("class", `square ${GameSquares[index]}`)
 
-            isX = !isX;
-
+            const winnerWinnerChickenDinner = winCheck();
+            if(winnerWinnerChickenDinner){
+                statusDiv.textContent = `Congratulations! ${winnerWinnerChickenDinner} is the Winner!`;
+                statusDiv.classList.add("you-won");
+            }else{
+                isX = !isX;                
+            }
         }
         });
         
