@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     squares.forEach((square, index) => {
         square.setAttribute("class","square");
+
         square.addEventListener("click", function(){
 
         if(!GameSquares[index]){
@@ -17,6 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
             isX = !isX;
 
         }
+        });
+        
+        square.addEventListener("mouseover", function(){
+            square.classList.add("hover")
+        });
+        
+        square.addEventListener("mouseout", function(){
+            square.classList.remove("hover")
         });
     });
 
